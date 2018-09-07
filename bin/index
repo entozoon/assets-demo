@@ -55,12 +55,13 @@ let html = `
 <title>Assets Demo</title>
 <style>
 body {
+    margin: 0;
   background: #cfcfcf
 }
 a {
   display: block;
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
 }
 img {
   display: block;
