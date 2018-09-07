@@ -1,6 +1,6 @@
 const fs = require("fs"),
   browserSync = require("browser-sync"),
-  assetsPath = "../../assets";
+  assetsPath = "../../../assets";
 
 // Check /assetsPath exists
 if (!fs.existsSync(assetsPath)) {

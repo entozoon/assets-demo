@@ -1,2 +1,7 @@
-# assets-demo
-Demo your /assets images real easy
+# Assets-demo
+
+Demo your /assets images real easy.
+
+## Use
+
+    npx assets-demo
