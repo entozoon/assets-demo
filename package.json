@@ -1,0 +1,15 @@
+{
+  "name": "asset-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.24.7",
+    "nodemon": "^1.18.4"
+  }
+}
