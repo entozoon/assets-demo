@@ -4,7 +4,7 @@
   "description": "",
   "main": "./bin/index.js",
   "bin": {
-    "assets-demo": "node ./bin/index"
+    "assets-demo": "./bin/index"
   },
   "scripts": {
     "start": "node ./bin/index"
