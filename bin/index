@@ -1,6 +1,16 @@
 #!/usr/bin/env node
 "use strict";
 
+const intro = `
+   ::    :::::   :::::  :::::: ::::::: :::::     ::::::  ::::::: ::   :::  :::::
+ :+  :+ ++      +:      :+        :+  +:         ++   :+ +:      :++::++: ++   :+
++++++++ +#+:+#+ +#+:+#+ #+:+#     #+  +#+:+#+    ++   :+ +#+:+#  #+ ++ +# ++   :+
+++   +#      #+      ++ #+        #+       ++    ++   #+ +#      #+    +# ++   #+
+##   ##  #####   #####  ######    ##   #####     ######  ####### ##    ##  #####
+
+`; // https://ascii-text-art.netlify.com/
+console.log(intro);
+
 const fs = require("fs"),
   browserSync = require("browser-sync"),
   assetsPath = "./assets";
@@ -32,15 +42,21 @@ assets = assets.filter(asset => {
 
 // Create image cycling script
 let script = `
-console.log('Assets-demo\\nTotal assets: ' + ${assets.length});
+var intro = ${JSON.stringify(intro)};
+console.log(intro);
+console.log('Total assets: ' + ${assets.length});
 var assets = ${JSON.stringify(assets)};
 var i = -1;
 function cycle() {
   i = (i >= ${assets.length - 1}) ? 0 : ++i;
-  console.log('Asset index: ' + i);
-  document.getElementById('asset').src = assets[i]
+  console.log('Asset cycle: ' + i);
+  window.location.hash = i;
 }
 cycle();
+window.onhashchange = function() {
+    var i = window.location.hash.replace('#','');
+    document.getElementById('asset').src = assets[i]
+}
 `;
 
 // Create image caches (doesn't make all that much difference but no reason not to)
@@ -81,7 +97,7 @@ img {
 </style>
 </head>
 <body>
-<a href="#" onClick="cycle()"><img id="asset" /></a>
+<a href="#" onClick="cycle(); return false;"><img id="asset" /></a>
 <script>${script}</script>
 <div class="preloader">${imageCaches}</div>
 </body>
