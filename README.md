@@ -1,6 +1,6 @@
 # Assets-demo
 
-Demo your /assets images real easy.
+Demo your `/assets` images real easy.
 
 ## Use
 

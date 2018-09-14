@@ -55,22 +55,25 @@ function cycle() {
 cycle();
 window.onhashchange = function() {
     var i = window.location.hash.replace('#','');
-    document.getElementById('asset').src = assets[i]
+    let filename = assets[i],
+    fileString = filename.split(".");
+    fileString = fileString[fileString.length - 2]; // e.g. "image-name-768px"
+
+    document.getElementById('asset').src = filename;
+
+    // if ending in, say "-768px", use that as a max-width on the img element
+    let widthMatches = fileString.match(/-[0-9]+px$/),
+        width;
+    if (widthMatches) {
+        width = widthMatches[0].replace(/[^0-9]/g, ""); // e.g. 768
+        document.getElementById('asset').style.maxWidth = width + 'px';
+    }
 }
 `;
 
 // Create image caches (doesn't make all that much difference but no reason not to)
 const imageCaches = assets.reduce((acc, asset) => {
-  let filename = asset.split(".");
-  filename = filename[filename.length - 2]; // e.g. "image-name-768px"
-  // if ending in, say "-768px", use that as a max-width on the img element
-  let width = filename.match(/-[0-9]+px$/)[0].replace(/\D/g, ""); // e.g. 768
-  return (
-    acc +
-    `<img src="${asset}" width="1" height="1" ${
-      width ? ' style="max-width:' + width + 'px"' : ""
-    } />`
-  );
+  return acc + `<img src="${asset}" width="1" height="1" />`;
 }, "");
 
 // Generate an assets-demo.html file to go in /assetsPath
