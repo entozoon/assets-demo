@@ -61,7 +61,16 @@ window.onhashchange = function() {
 
 // Create image caches (doesn't make all that much difference but no reason not to)
 const imageCaches = assets.reduce((acc, asset) => {
-  return acc + `<img src="${asset}" width="1" height="1" />`;
+  let filename = asset.split(".");
+  filename = filename[filename.length - 2]; // e.g. "image-name-768px"
+  // if ending in, say "-768px", use that as a max-width on the img element
+  let width = filename.match(/-[0-9]+px$/)[0].replace(/\D/g, ""); // e.g. 768
+  return (
+    acc +
+    `<img src="${asset}" width="1" height="1" ${
+      width ? ' style="max-width:' + width + 'px"' : ""
+    } />`
+  );
 }, "");
 
 // Generate an assets-demo.html file to go in /assetsPath
