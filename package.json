@@ -1,13 +1,13 @@
 {
   "name": "assets-demo",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "",
   "main": "./bin/index",
   "bin": {
     "assets-demo": "./bin/index"
   },
   "scripts": {
-    "start": "nodemon ./bin/index"
+    "start": "nodemon ./bin/index -w ./bin/index"
   },
   "author": "",
   "license": "ISC",

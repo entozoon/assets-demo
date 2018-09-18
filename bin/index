@@ -45,17 +45,22 @@ let script = `
 var intro = ${JSON.stringify(intro)};
 console.log(intro);
 console.log('Total assets: ' + ${assets.length});
+
 var assets = ${JSON.stringify(assets)};
-var i = -1;
+
+function hashIndex() { return parseInt(window.location.hash.replace('#','')); }
+
 function cycle() {
-  i = (i >= ${assets.length - 1}) ? 0 : ++i;
+  var i = hashIndex();
+  i = (i > ${assets.length - 1}) ? 1 : ++i;
   console.log('Asset cycle: ' + i);
   window.location.hash = i;
 }
-cycle();
+
 window.onhashchange = function() {
-    var i = window.location.hash.replace('#','');
-    let filename = assets[i],
+// window.onpopstate = function() {
+    var i = hashIndex();
+    let filename = assets[i-1],
     fileString = filename.split(".");
     fileString = fileString[fileString.length - 2]; // e.g. "image-name-768px"
 
@@ -63,12 +68,13 @@ window.onhashchange = function() {
 
     // if ending in, say "-768px", use that as a max-width on the img element
     let widthMatches = fileString.match(/-[0-9]+px$/),
-        width;
+        width = 9999;
     if (widthMatches) {
         width = widthMatches[0].replace(/[^0-9]/g, ""); // e.g. 768
-        document.getElementById('asset').style.maxWidth = width + 'px';
     }
+    document.getElementById('asset').style.maxWidth = width + 'px';
 }
+window.location.hash = 1;
 `;
 
 // Create image caches (doesn't make all that much difference but no reason not to)
