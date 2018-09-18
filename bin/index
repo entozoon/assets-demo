@@ -48,6 +48,10 @@ console.log('Total assets: ' + ${assets.length});
 
 var assets = ${JSON.stringify(assets)};
 
+// Natural filename sorting - https://stackoverflow.com/a/38641281
+var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+assets = assets.sort(collator.compare);
+
 function hashIndex() { return parseInt(window.location.hash.replace('#','')); }
 
 function cycle() {
